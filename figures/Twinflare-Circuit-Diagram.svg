@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Twinflare complete circuit diagram</title>
+  <desc id="desc">One Arduino Uno and central breadboard connected through a bidirectional I2C level converter to two mini breadboards. Each mini breadboard carries a GY-521, fire button, red LED and one kilo-ohm resistor. The central breadboard carries the active buzzer transistor driver.</desc>
+  <defs>
+    <pattern id="holes" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="9" cy="9" r="1.7" fill="#aeb8c4"/>
+    </pattern>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#16324a" flood-opacity=".16"/>
+    </filter>
+    <style>
+      .bg{fill:#f5f8fb}.panel{fill:#fff;stroke:#334155;stroke-width:2}.board{fill:url(#holes);stroke:#64748b;stroke-width:2}
+      .title{font:700 34px Arial,sans-serif;fill:#102a43}.subtitle{font:18px Arial,sans-serif;fill:#526579}
+      .h1{font:700 23px Arial,sans-serif;fill:#102a43}.h2{font:700 17px Arial,sans-serif;fill:#17324d}
+      .label{font:15px Arial,sans-serif;fill:#27384a}.small{font:13px Arial,sans-serif;fill:#526579}.tiny{font:12px Arial,sans-serif;fill:#334155}
+      .pin{fill:#fff;stroke:#334155;stroke-width:1.5}.junction{stroke:#fff;stroke-width:2}
+      .w{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+      .p5{stroke:#d55e00}.gnd{stroke:#202a35}.v33{stroke:#7b4ab5}.sda{stroke:#0072b2}.scl{stroke:#e69f00}.fire{stroke:#009e73}.led{stroke:#cc79a7}
+      .sw{stroke:#64748b}
+      .thin{stroke-width:3}.dash{stroke-dasharray:10 7}
+      .sensor{fill:#dff4ef;stroke:#00796b;stroke-width:2}.uno{fill:#d9edf7;stroke:#0072b2;stroke-width:3}
+      .convert{fill:#fff0d4;stroke:#c77c00;stroke-width:2}.component{fill:#f8fafc;stroke:#475569;stroke-width:2}
+      .danger{fill:#fff4f2;stroke:#d55e00;stroke-width:2}.note{fill:#eef6fb;stroke:#7a9ab3;stroke-width:1.5}
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1200"/>
+  <text id="diagram-title" class="title" x="55" y="55">Twinflare complete wiring map</text>
+  <text class="subtitle" x="55" y="88">One Uno • two GY-521 controllers • central level converter and buzzer driver</text>
+  <rect class="danger" x="1230" y="28" width="515" height="72" rx="8"/>
+  <text class="h2" x="1250" y="55">UNPOWERED ASSEMBLY FIRST</text>
+  <text class="small" x="1250" y="80">Match printed pin labels. Verify GY-521 VCC rating and transistor E/B/C.</text>
+
+  <!-- Legend -->
+  <g transform="translate(55 116)">
+    <text class="h2" x="0" y="18">Wire legend</text>
+    <line class="w p5" x1="130" y1="12" x2="175" y2="12"/><text class="small" x="184" y="17">5V</text>
+    <line class="w gnd" x1="235" y1="12" x2="280" y2="12"/><text class="small" x="289" y="17">GND</text>
+    <line class="w v33" x1="365" y1="12" x2="410" y2="12"/><text class="small" x="419" y="17">3.3V</text>
+    <line class="w sda" x1="505" y1="12" x2="550" y2="12"/><text class="small" x="559" y="17">SDA</text>
+    <line class="w scl" x1="635" y1="12" x2="680" y2="12"/><text class="small" x="689" y="17">SCL</text>
+    <line class="w fire" x1="765" y1="12" x2="810" y2="12"/><text class="small" x="819" y="17">Fire</text>
+    <line class="w led" x1="905" y1="12" x2="950" y2="12"/><text class="small" x="959" y="17">LED control</text>
+  </g>
+
+  <!-- Three physical assemblies -->
+  <rect class="panel" filter="url(#soft)" x="35" y="180" width="420" height="880" rx="12"/>
+  <rect class="panel" filter="url(#soft)" x="490" y="150" width="820" height="960" rx="12"/>
+  <rect class="panel" filter="url(#soft)" x="1345" y="180" width="420" height="880" rx="12"/>
+  <text class="h1" x="60" y="218">PLAYER 1 MINI BREADBOARD</text>
+  <text class="small" x="60" y="244">Six-wire tether • sensor address 0x68</text>
+  <text class="h1" x="515" y="188">CENTRAL BASE</text>
+  <text class="small" x="515" y="214">Arduino Uno + main breadboard • one USB cable to laptop</text>
+  <text class="h1" x="1370" y="218">PLAYER 2 MINI BREADBOARD</text>
+  <text class="small" x="1370" y="244">Seven-wire tether • sensor address 0x69</text>
+
+  <!-- UNO -->
+  <rect class="uno" x="650" y="245" width="500" height="205" rx="18"/>
+  <text class="h1" x="815" y="282">ARDUINO UNO R3</text>
+  <text class="small" x="808" y="308">USB-B → laptop / 115200 baud</text>
+  <rect class="component" x="675" y="270" width="72" height="52" rx="5"/>
+  <text class="small" x="686" y="300">USB-B</text>
+
+  <!-- UNO power pins -->
+  <circle class="pin" cx="680" cy="410" r="10"/><text class="tiny" x="662" y="388">5V</text>
+  <circle class="pin" cx="730" cy="410" r="10"/><text class="tiny" x="708" y="388">GND</text>
+  <circle class="pin" cx="780" cy="410" r="10"/><text class="tiny" x="757" y="388">3V3</text>
+  <!-- UNO I/O pins -->
+  <circle class="pin" cx="850" cy="410" r="10"/><text class="tiny" x="840" y="388">D2</text>
+  <circle class="pin" cx="900" cy="410" r="10"/><text class="tiny" x="890" y="388">D3</text>
+  <circle class="pin" cx="950" cy="410" r="10"/><text class="tiny" x="940" y="388">D4</text>
+  <circle class="pin" cx="1000" cy="410" r="10"/><text class="tiny" x="990" y="388">D5</text>
+  <circle class="pin" cx="1050" cy="410" r="10"/><text class="tiny" x="1040" y="388">D6</text>
+  <circle class="pin" cx="1100" cy="410" r="10"/><text class="tiny" x="1081" y="388">A4</text>
+  <circle class="pin" cx="1140" cy="410" r="10"/><text class="tiny" x="1121" y="388">A5</text>
+
+  <!-- Central breadboard -->
+  <rect class="board" x="520" y="485" width="760" height="585" rx="10"/>
+  <text class="h2" x="540" y="515">CENTRAL SOLDERLESS BREADBOARD</text>
+  <line class="w p5" x1="550" y1="545" x2="1250" y2="545"/>
+  <text class="small" x="555" y="538">5V rail</text>
+  <line class="w gnd" x1="550" y1="580" x2="1250" y2="580"/>
+  <text class="small" x="555" y="603">Common GND rail</text>
+  <line class="w v33" x1="720" y1="620" x2="875" y2="620"/>
+  <text class="small" x="720" y="643">Isolated 3V3 node</text>
+
+  <!-- UNO power to rails -->
+  <path class="w p5" d="M680 420 V545"/>
+  <path class="w gnd" d="M730 420 V580"/>
+  <path class="w v33" d="M780 420 V620"/>
+  <circle class="p5 junction" fill="#d55e00" cx="680" cy="545" r="7"/>
+  <circle class="gnd junction" fill="#202a35" cx="730" cy="580" r="7"/>
+  <circle class="v33 junction" fill="#7b4ab5" cx="780" cy="620" r="7"/>
+
+  <!-- Level converter -->
+  <rect class="convert" x="820" y="665" width="260" height="180" rx="10"/>
+  <text class="h2" x="846" y="700">BIDIRECTIONAL</text>
+  <text class="h2" x="858" y="722">LEVEL CONVERTER</text>
+  <text class="tiny" x="852" y="744">HV = 5V • LV = 3.3V</text>
+  <circle class="pin" cx="850" cy="680" r="8"/><text class="tiny" x="838" y="660">HV</text>
+  <circle class="pin" cx="900" cy="680" r="8"/><text class="tiny" x="890" y="660">G</text>
+  <circle class="pin" cx="950" cy="680" r="8"/><text class="tiny" x="940" y="660">LV</text>
+  <circle class="pin" cx="1010" cy="680" r="8"/><text class="tiny" x="995" y="660">HV1</text>
+  <circle class="pin" cx="1050" cy="680" r="8"/><text class="tiny" x="1035" y="660">HV2</text>
+  <circle class="pin" cx="1010" cy="830" r="8"/><text class="tiny" x="995" y="860">LV1</text>
+  <circle class="pin" cx="1050" cy="830" r="8"/><text class="tiny" x="1035" y="860">LV2</text>
+  <path class="w p5 thin" d="M850 672 V545"/>
+  <path class="w gnd thin" d="M900 672 V580"/>
+  <path class="w v33 thin" d="M950 672 V620"/>
+  <path class="w sda thin" d="M1100 420 V635 H1010 V672"/>
+  <path class="w scl thin" d="M1140 420 V650 H1050 V672"/>
+  <text class="tiny" x="1080" y="628">A4/SDA → HV1</text>
+  <text class="tiny" x="1080" y="664">A5/SCL → HV2</text>
+
+  <!-- P1 mini breadboard -->
+  <rect class="board" x="65" y="280" width="360" height="725" rx="10"/>
+  <line class="w p5" x1="90" y1="325" x2="400" y2="325"/>
+  <line class="w gnd" x1="90" y1="360" x2="400" y2="360"/>
+  <text class="tiny" x="95" y="316">5V local</text><text class="tiny" x="95" y="383">GND local</text>
+  <rect class="sensor" x="125" y="435" width="235" height="225" rx="10"/>
+  <text class="h1" x="186" y="474">GY-521 P1</text>
+  <text class="small" x="172" y="500">MPU6050 module</text>
+  <text class="label" x="148" y="540">VCC</text><text class="label" x="148" y="570">GND</text>
+  <text class="label" x="148" y="600">AD0 → GND</text>
+  <text class="label" x="292" y="540">SDA</text><text class="label" x="292" y="570">SCL</text>
+  <text class="small" x="148" y="635">XDA / XCL / INT: NC</text>
+  <path class="w p5 thin" d="M160 520 V325"/><path class="w gnd thin" d="M190 555 V360"/>
+  <path class="w gnd thin" d="M220 595 H190"/>
+
+  <rect class="component" x="90" y="740" width="130" height="80" rx="8"/>
+  <text class="h2" x="115" y="773">FIRE BUTTON</text><text class="small" x="117" y="798">D2 ↔ GND</text>
+  <path class="w gnd thin" d="M120 820 V845 H95 V360"/>
+  <rect class="component" x="250" y="730" width="140" height="105" rx="8"/>
+  <text class="h2" x="287" y="760">RED LED</text><text class="small" x="270" y="785">D4 → 1kΩ → anode</text>
+  <text class="small" x="275" y="810">cathode → GND</text>
+  <path class="w gnd thin" d="M365 835 V870 H400 V360"/>
+
+  <!-- P1 tether, external -->
+  <g>
+    <line class="w p5" x1="425" y1="675" x2="520" y2="675"/><text class="tiny" x="445" y="669">5V</text>
+    <line class="w gnd" x1="425" y1="705" x2="520" y2="705"/><text class="tiny" x="442" y="699">GND</text>
+    <line class="w sda" x1="425" y1="735" x2="520" y2="735"/><text class="tiny" x="440" y="729">SDA</text>
+    <line class="w scl" x1="425" y1="765" x2="520" y2="765"/><text class="tiny" x="440" y="759">SCL</text>
+    <line class="w fire" x1="425" y1="795" x2="520" y2="795"/><text class="tiny" x="438" y="789">D2</text>
+    <line class="w led" x1="425" y1="825" x2="520" y2="825"/><text class="tiny" x="438" y="819">D4</text>
+  </g>
+  <!-- P1 internal and central routing -->
+  <path class="w p5 thin" d="M425 675 H400 V325"/><path class="w p5 thin" d="M520 675 H550 V545"/>
+  <path class="w gnd thin" d="M425 705 H390 V360"/><path class="w gnd thin" d="M520 705 H570 V580"/>
+  <path class="w sda thin" d="M360 540 H405 V735 H425"/><path class="w sda thin" d="M520 735 H1010 V830"/>
+  <path class="w scl thin" d="M360 570 H395 V765 H425"/><path class="w scl thin" d="M520 765 H1050 V830"/>
+  <path class="w fire thin" d="M220 780 H425"/><path class="w fire thin" d="M520 795 H600 V460 H850 V420"/>
+  <path class="w led thin" d="M390 780 H410 V825 H425"/><path class="w led thin" d="M520 825 H625 V470 H950 V420"/>
+
+  <!-- P2 mini breadboard -->
+  <rect class="board" x="1375" y="280" width="360" height="725" rx="10"/>
+  <line class="w p5" x1="1400" y1="325" x2="1710" y2="325"/>
+  <line class="w gnd" x1="1400" y1="360" x2="1710" y2="360"/>
+  <line class="w v33" x1="1565" y1="395" x2="1710" y2="395"/>
+  <text class="tiny" x="1405" y="316">5V local</text><text class="tiny" x="1405" y="383">GND local</text><text class="tiny" x="1570" y="417">3V3 to AD0 only</text>
+  <rect class="sensor" x="1440" y="435" width="235" height="225" rx="10"/>
+  <text class="h1" x="1500" y="474">GY-521 P2</text>
+  <text class="small" x="1487" y="500">MPU6050 module</text>
+  <text class="label" x="1463" y="540">VCC</text><text class="label" x="1463" y="570">GND</text>
+  <text class="label" x="1463" y="600">AD0 → 3.3V</text>
+  <text class="label" x="1607" y="540">SDA</text><text class="label" x="1607" y="570">SCL</text>
+  <text class="small" x="1463" y="635">XDA / XCL / INT: NC</text>
+  <path class="w p5 thin" d="M1475 520 V325"/><path class="w gnd thin" d="M1505 555 V360"/>
+  <path class="w v33 thin" d="M1535 595 H1580 V395"/>
+
+  <rect class="component" x="1400" y="740" width="130" height="80" rx="8"/>
+  <text class="h2" x="1425" y="773">FIRE BUTTON</text><text class="small" x="1427" y="798">D3 ↔ GND</text>
+  <path class="w gnd thin" d="M1500 820 V850 H1410 V360"/>
+  <rect class="component" x="1560" y="730" width="140" height="105" rx="8"/>
+  <text class="h2" x="1597" y="760">RED LED</text><text class="small" x="1580" y="785">D5 → 1kΩ → anode</text>
+  <text class="small" x="1585" y="810">cathode → GND</text>
+  <path class="w gnd thin" d="M1675 835 V870 H1700 V360"/>
+
+  <!-- P2 tether -->
+  <g>
+    <line class="w p5" x1="1280" y1="675" x2="1375" y2="675"/><text class="tiny" x="1310" y="669">5V</text>
+    <line class="w gnd" x1="1280" y1="705" x2="1375" y2="705"/><text class="tiny" x="1302" y="699">GND</text>
+    <line class="w sda" x1="1280" y1="735" x2="1375" y2="735"/><text class="tiny" x="1305" y="729">SDA</text>
+    <line class="w scl" x1="1280" y1="765" x2="1375" y2="765"/><text class="tiny" x="1305" y="759">SCL</text>
+    <line class="w fire" x1="1280" y1="795" x2="1375" y2="795"/><text class="tiny" x="1312" y="789">D3</text>
+    <line class="w led" x1="1280" y1="825" x2="1375" y2="825"/><text class="tiny" x="1312" y="819">D5</text>
+    <line class="w v33" x1="1280" y1="855" x2="1375" y2="855"/><text class="tiny" x="1300" y="849">3V3</text>
+  </g>
+  <!-- P2 internal and central routing -->
+  <path class="w p5 thin" d="M1375 675 H1400 V325"/><path class="w p5 thin" d="M1280 675 H1250 V545"/>
+  <path class="w gnd thin" d="M1375 705 H1410 V360"/><path class="w gnd thin" d="M1280 705 H1230 V580"/>
+  <path class="w sda thin" d="M1675 540 H1720 V700 H1375 V735"/><path class="w sda thin" d="M1280 735 H1010 V830"/>
+  <path class="w scl thin" d="M1675 570 H1710 V680 H1360 V765 H1375"/><path class="w scl thin" d="M1280 765 H1050 V830"/>
+  <path class="w fire thin" d="M1530 780 H1375"/><path class="w fire thin" d="M1280 795 H1200 V460 H900 V420"/>
+  <path class="w led thin" d="M1560 780 H1390 V825 H1375"/><path class="w led thin" d="M1280 825 H1175 V470 H1000 V420"/>
+  <path class="w v33 thin" d="M1375 855 H1580 V395"/><path class="w v33 thin" d="M1280 855 H1200 V620 H875"/>
+
+  <!-- Buzzer driver -->
+  <rect class="note" x="555" y="890" width="690" height="145" rx="10"/>
+  <text class="h2" x="575" y="918">CENTRAL BUZZER DRIVER</text>
+  <path class="w fire thin" d="M1050 420 V455 H1130 V945 H680"/>
+  <rect class="component" x="680" y="925" width="125" height="40" rx="5"/>
+  <text class="small" x="696" y="950">D6 → 680Ω</text>
+  <circle class="component" cx="850" cy="950" r="38"/>
+  <text class="h2" x="837" y="956">NPN</text>
+  <text class="tiny" x="830" y="1005">Verify E/B/C</text>
+  <text class="tiny" x="807" y="940">B</text><text class="tiny" x="858" y="909">C</text><text class="tiny" x="858" y="991">E</text>
+  <path class="w fire thin" d="M805 945 H812"/>
+  <path class="w gnd thin" d="M850 988 V1018 H730 V580"/>
+  <rect class="component" x="700" y="985" width="75" height="34" rx="5"/>
+  <text class="tiny" x="713" y="1007">10kΩ</text>
+  <path class="w gnd thin" d="M775 1002 H790 V950 H812"/><path class="w gnd thin" d="M700 1002 H680 V580"/>
+
+  <rect class="component" x="1080" y="925" width="125" height="55" rx="7"/>
+  <text class="h2" x="1095" y="950">5V BUZZER</text>
+  <text class="tiny" x="1108" y="970">+ left / − right</text>
+  <path class="w p5 thin" d="M1090 925 V545"/>
+  <path class="w sw thin" d="M1195 980 V900 H850 V912"/>
+  <rect class="component" x="1070" y="995" width="145" height="26" rx="4"/>
+  <text class="tiny" x="1080" y="1013">1N4007: stripe to +5V</text>
+  <path class="w p5 thin dash" d="M1080 1008 H1060 V925 H1090"/>
+  <path class="w sw thin dash" d="M1215 1008 H1230 V980 H1195"/>
+
+  <rect class="component" x="565" y="930" width="100" height="70" rx="7"/>
+  <text class="h2" x="580" y="955">100µF</text>
+  <text class="tiny" x="577" y="979">+5V / −GND</text>
+  <path class="w p5 thin" d="M590 930 V545"/><path class="w gnd thin" d="M640 1000 V1020 H670 V580"/>
+
+  <!-- Bottom notes -->
+  <rect class="note" x="35" y="1080" width="1730" height="90" rx="8"/>
+  <text class="h2" x="55" y="1110">Before USB power</text>
+  <text class="label" x="55" y="1138">P1 AD0 → GND • P2 AD0 → 3.3V • both SDA → LV1 • both SCL → LV2 • diode stripe → buzzer +5V • capacitor stripe → GND</text>
+  <text class="small" x="55" y="1160">This is an electrical wiring map, not an exact breadboard-hole prescription. Use the printed labels and the assembly tutorial; leave D0/D1, XDA, XCL and INT unconnected.</text>
+</svg>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Twinflare</title>
+  <link rel="icon" type="image/png" href="assets/menu-wallpaper.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= MENU ================= -->
+  <section id="menu" class="screen">
+    <div class="frame">
+      <div class="wallpaper" role="img" aria-label="Twinflare title art: two rockets, one blue and one orange, flying past a planet"></div>
+      <div class="scanlines" aria-hidden="true"></div>
+
+      <div class="corner-controls">
+        <button id="btn-sound" class="hud-chip" type="button" aria-pressed="false">SOUND ON</button>
+        <button id="btn-fullscreen" class="hud-chip" type="button">FULLSCREEN</button>
+      </div>
+
+      <!-- Mission select -->
+      <nav id="nav-panel" class="hud-panel menu-panel" aria-label="Mission select">
+        <div class="panel-label">MISSION SELECT</div>
+        <button class="nav-item" type="button" data-action="practice">
+          <span class="idx">01</span>
+          <span class="txt"><strong>Practice</strong><small>No timer, no hull loss. Train on asteroids and drones.</small></span>
+          <span class="go">LAUNCH</span>
+        </button>
+        <button class="nav-item" type="button" data-action="solo">
+          <span class="idx">02</span>
+          <span class="txt"><strong>Solo Mission</strong><small>90 seconds. Dodge hazards, intercept plasma and destroy drones.</small></span>
+          <span class="go">LAUNCH</span>
+        </button>
+        <button class="nav-item" type="button" data-action="coop">
+          <span class="idx">03</span>
+          <span class="txt"><strong>Co-op Mission</strong><small>Two rockets, one arena, one score. Crashing costs half a heart each.</small></span>
+          <span class="go">LAUNCH</span>
+        </button>
+        <button class="nav-item" type="button" data-action="controls">
+          <span class="idx">04</span>
+          <span class="txt"><strong>Controls</strong><small>Key layout for both players.</small></span>
+          <span class="go">OPEN</span>
+        </button>
+        <button class="nav-item" type="button" data-action="options">
+          <span class="idx">05</span>
+          <span class="txt"><strong>Options</strong><small>Target score, course seed, sound and music.</small></span>
+          <span class="go">OPEN</span>
+        </button>
+      </nav>
+
+      <!-- Options -->
+      <section id="options-panel" class="hud-panel menu-panel sub" hidden aria-label="Options">
+        <div class="panel-label">OPTIONS</div>
+        <div class="field">
+          <label for="opt-target">Target score</label>
+          <div class="stepper">
+            <button type="button" class="step" data-step="-10" aria-label="Decrease target">-</button>
+            <input id="opt-target" type="number" min="10" step="10" value="100" />
+            <button type="button" class="step" data-step="10" aria-label="Increase target">+</button>
+          </div>
+          <small>Team score needed before the 90 second timer ends.</small>
+        </div>
+        <div class="field">
+          <label for="opt-seed">Course seed</label>
+          <input id="opt-seed" type="text" maxlength="16" placeholder="RANDOM" autocomplete="off" spellcheck="false" />
+          <small>Leave empty for a new random course each round. Enter the same seed to replay an identical course, for example when comparing keyboard and tilt control.</small>
+        </div>
+        <div class="field row">
+          <label for="opt-sound">Sound</label>
+          <button id="opt-sound" type="button" class="toggle" role="switch" aria-checked="true"><span></span></button>
+        </div>
+        <div class="field row">
+          <label for="opt-music">Menu music</label>
+          <button id="opt-music" type="button" class="toggle" role="switch" aria-checked="true"><span></span></button>
+        </div>
+        <div class="panel-actions">
+          <button type="button" class="hud-btn ghost" data-action="back">BACK</button>
+          <button type="button" class="hud-btn" data-action="save">SAVE</button>
+        </div>
+      </section>
+
+      <!-- Controls -->
+      <section id="controls-panel" class="hud-panel menu-panel sub" hidden aria-label="Controls">
+        <div class="panel-label">CONTROLS</div>
+        <div class="controls-grid">
+          <div class="ctl p1">
+            <div class="ctl-title">PLAYER 1</div>
+            <div class="ctl-row"><span>Bank left / right</span><span class="keys"><kbd>A</kbd><kbd>D</kbd></span></div>
+            <div class="ctl-row"><span>Fire</span><span class="keys"><kbd class="wide">SPACE</kbd></span></div>
+          </div>
+          <div class="ctl p2">
+            <div class="ctl-title">PLAYER 2</div>
+            <div class="ctl-row"><span>Bank left / right</span><span class="keys"><kbd>&larr;</kbd><kbd>&rarr;</kbd></span></div>
+            <div class="ctl-row"><span>Fire</span><span class="keys"><kbd class="wide">ENTER</kbd></span></div>
+          </div>
+          <div class="ctl">
+            <div class="ctl-title">GAME</div>
+            <div class="ctl-row"><span>Pause / resume</span><span class="keys"><kbd>P</kbd><kbd>ESC</kbd></span></div>
+            <div class="ctl-row"><span>Fullscreen</span><span class="keys"><kbd>F</kbd></span></div>
+          </div>
+        </div>
+        <p class="note">Holding a bank key tilts the rocket up to 20&deg;. Steering starts outside a 2.5&deg; dead zone and reaches full speed at 20&deg;, the same mapping the tilt controllers will use.</p>
+        <div class="panel-actions">
+          <button type="button" class="hud-btn ghost" data-action="back">BACK</button>
+        </div>
+      </section>
+
+      <!-- Systems readout -->
+      <aside id="status-panel" class="hud-panel status" aria-label="System status">
+        <div class="panel-label">SYSTEMS</div>
+        <dl>
+          <dt>Input</dt><dd id="st-input">Keyboard</dd>
+          <dt>Controllers</dt><dd id="st-serial" class="dim">Not linked</dd>
+          <dt>Course</dt><dd id="st-seed">Random</dd>
+          <dt>Target</dt><dd id="st-target">100</dd>
+        </dl>
+        <div class="serial-actions">
+          <button id="btn-connect" class="system-btn" type="button">CONNECT ARDUINO</button>
+          <button id="btn-calibrate" class="system-btn" type="button" disabled>CALIBRATE</button>
+          <button id="btn-input-source" class="system-btn" type="button" disabled>USE ARDUINO</button>
+        </div>
+        <p id="serial-message" class="system-message" aria-live="polite">Keyboard is ready. Arduino input requires desktop Chrome or Edge.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= GAME ================= -->
+  <section id="game-screen" class="screen" hidden>
+    <div id="game-frame">
+      <canvas id="game" width="1600" height="900" aria-label="Playfield"></canvas>
+
+      <header id="topbar">
+        <div class="tb-left">
+          <span class="tb-brand">TWINFLARE</span>
+          <span id="tb-mode" class="tb-mode">SOLO MISSION</span>
+        </div>
+        <div class="tb-center">
+          <span class="tb-label">SCORE</span>
+          <span id="tb-score" class="tb-value">0</span>
+          <span id="tb-target" class="tb-sub">/ 100</span>
+        </div>
+        <div class="tb-right">
+          <span id="tb-timer" class="tb-timer">1:30</span>
+          <button id="btn-pause" class="hud-chip" type="button">PAUSE</button>
+        </div>
+      </header>
+
+      <aside id="panel-p1" class="player-panel p1" data-player="0">
+        <div class="pp-head"><span class="pp-num">1</span><span class="pp-name">PLAYER ONE</span><span class="pp-state">READY</span></div>
+        <div class="pp-row">
+          <div class="pp-block">
+            <div class="pp-label">HULL</div>
+            <div class="hearts"><i class="heart"></i><i class="heart"></i><i class="heart"></i></div>
+          </div>
+          <div class="pp-block fire"><span class="fire-lamp"></span><span class="pp-label">FIRE</span></div>
+        </div>
+        <div class="pp-block">
+          <div class="pp-label">BANK <span class="bank-val">+0.0&deg;</span></div>
+          <div class="gauge"><div class="dead"></div><div class="needle"></div></div>
+          <div class="gauge-scale"><span>L</span><span>NEUTRAL</span><span>R</span></div>
+        </div>
+        <dl class="pp-stats">
+          <dt>Score</dt><dd class="s-score">0</dd>
+          <dt>Kills</dt><dd class="s-hits">0</dd>
+          <dt>Gates</dt><dd class="s-gates">0</dd>
+          <dt>Shots</dt><dd class="s-shots">0</dd>
+        </dl>
+      </aside>
+
+      <aside id="panel-p2" class="player-panel p2 right" data-player="1">
+        <div class="pp-head"><span class="pp-num">2</span><span class="pp-name">PLAYER TWO</span><span class="pp-state">READY</span></div>
+        <div class="pp-row">
+          <div class="pp-block">
+            <div class="pp-label">HULL</div>
+            <div class="hearts"><i class="heart"></i><i class="heart"></i><i class="heart"></i></div>
+          </div>
+          <div class="pp-block fire"><span class="fire-lamp"></span><span class="pp-label">FIRE</span></div>
+        </div>
+        <div class="pp-block">
+          <div class="pp-label">BANK <span class="bank-val">+0.0&deg;</span></div>
+          <div class="gauge"><div class="dead"></div><div class="needle"></div></div>
+          <div class="gauge-scale"><span>L</span><span>NEUTRAL</span><span>R</span></div>
+        </div>
+        <dl class="pp-stats">
+          <dt>Score</dt><dd class="s-score">0</dd>
+          <dt>Kills</dt><dd class="s-hits">0</dd>
+          <dt>Gates</dt><dd class="s-gates">0</dd>
+          <dt>Shots</dt><dd class="s-shots">0</dd>
+        </dl>
+      </aside>
+
+      <aside id="panel-mission" class="player-panel mission right" hidden>
+        <div class="pp-head"><span class="pp-name">MISSION</span></div>
+        <dl class="pp-stats">
+          <dt>Mode</dt><dd id="m-mode">Solo</dd>
+          <dt>Target</dt><dd id="m-target">100</dd>
+          <dt>Time limit</dt><dd id="m-time">90 s</dd>
+          <dt>Course</dt><dd id="m-seed">RANDOM</dd>
+          <dt>Input</dt><dd id="m-input">Keyboard</dd>
+        </dl>
+        <p class="pp-note" id="m-note">Gates score 5, asteroids 10 and enemy drones 20. You can intercept red plasma.</p>
+        <p class="pp-note dim"><kbd>A</kbd><kbd>D</kbd> bank &nbsp; <kbd>SPACE</kbd> fire &nbsp; <kbd>P</kbd> pause</p>
+      </aside>
+
+      <!-- Pause -->
+      <div id="pause" class="dialog-wrap" hidden>
+        <div class="dialog hud-panel">
+          <div class="panel-label">HOLD</div>
+          <h2>Paused</h2>
+          <p id="pause-reason" class="dim"></p>
+          <div id="serial-recovery" class="serial-recovery" hidden>
+            <div id="pause-serial-status" class="system-message" aria-live="polite"></div>
+            <div class="serial-actions">
+              <button id="btn-pause-connect" class="system-btn" type="button">RECONNECT</button>
+              <button id="btn-pause-calibrate" class="system-btn" type="button">CALIBRATE</button>
+            </div>
+          </div>
+          <div class="panel-actions">
+            <button id="btn-resume" class="hud-btn" type="button">RESUME</button>
+            <button id="btn-restart" class="hud-btn ghost" type="button">RESTART</button>
+            <button id="btn-quit" class="hud-btn ghost" type="button">MENU</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="dialog-wrap" hidden>
+        <div class="dialog hud-panel wide">
+          <div class="panel-label">DEBRIEF</div>
+          <h2 id="results-title">Round over</h2>
+          <p id="results-sub" class="dim"></p>
+          <table id="results-table"></table>
+          <div class="panel-actions">
+            <button id="btn-again" class="hud-btn" type="button">PLAY AGAIN</button>
+            <button id="btn-menu" class="hud-btn ghost" type="button">MENU</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
