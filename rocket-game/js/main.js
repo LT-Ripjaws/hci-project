@@ -45,6 +45,26 @@ function saveOptions() {
   try { localStorage.setItem(OPTIONS_KEY, JSON.stringify(options)); } catch { /* ignore */ }
 }
 
+// Best score per mode, kept alongside the options so a solo run can be measured
+// against the best one on this machine.
+const BEST_KEY = 'twinflare.best';
+
+function recordBest(mode, score) {
+  let all = {};
+  try {
+    const raw = localStorage.getItem(BEST_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && typeof parsed === 'object') all = parsed;
+  } catch { /* storage unavailable: treat as no record */ }
+  const prev = Number.isFinite(all[mode]) ? all[mode] : 0;
+  const isNew = score > prev;
+  if (isNew) {
+    all[mode] = score;
+    try { localStorage.setItem(BEST_KEY, JSON.stringify(all)); } catch { /* ignore */ }
+  }
+  return { best: Math.max(prev, score), isNew };
+}
+
 function applyOptions() {
   sfx.setMuted(!options.sound);
   feedback.setMuted(!options.sound);
@@ -393,13 +413,32 @@ function formatHearts(halves) {
 }
 
 function showResults(r) {
+  // Co-op still scores as one team; the headline just names which rocket did
+  // more of the work, so the mission verdict moves into the line below it.
+  const coop = r.mode === 'coop' && r.players.length === 2;
+  const [p1, p2] = r.players;
+  const drawn = coop && p1.score === p2.score;
+  const mission = r.success
+    ? 'Mission complete'
+    : r.reason === 'eliminated'
+      ? (r.players.length === 1 ? 'Rocket lost' : 'All rockets lost')
+      : 'Target not reached';
+  const coopTitle = () => (drawn ? 'Draw' : `${PLAYER_NAMES[p1.score > p2.score ? 0 : 1]} wins`);
   const title = r.mode === 'practice'
     ? 'Practice ended'
-    : r.success ? 'Mission complete' : (r.reason === 'eliminated' ? 'All rockets lost' : 'Target not reached');
+    : coop ? coopTitle() : mission;
   $('results-title').textContent = title;
-  $('results-title').className = r.success === null ? '' : (r.success ? 'ok' : 'bad');
-  const team = r.mode === 'practice' ? `Score ${r.teamScore}` : `Team score ${r.teamScore} of ${r.targetScore}`;
-  $('results-sub').textContent = `${team}. ${Math.round(r.elapsed)} seconds. Course ${r.seed}. Input ${r.input}.`;
+  $('results-title').className = r.success === null ? '' : (coop ? (drawn ? '' : 'ok') : (r.success ? 'ok' : 'bad'));
+  const solo = r.mode === 'solo';
+  const record = solo ? recordBest('solo', r.teamScore) : null;
+  const team = r.mode === 'practice'
+    ? `Score ${r.teamScore}`
+    : solo
+      ? `Score ${r.teamScore} of ${r.targetScore}`
+      : `Team score ${r.teamScore} of ${r.targetScore}`;
+  const lead = coop ? `${mission}. ${PLAYER_NAMES[0]} ${p1.score} \u2013 ${PLAYER_NAMES[1]} ${p2.score}. ${team}` : team;
+  const bestText = record ? ` Best ${record.best}${record.isNew ? ' (new best)' : ''}.` : '';
+  $('results-sub').textContent = `${lead}.${bestText} ${Math.round(r.elapsed)} seconds. Course ${r.seed}. Input ${r.input}.`;
 
   const table = $('results-table');
   table.replaceChildren();
@@ -412,7 +451,7 @@ function showResults(r) {
   for (const p of r.players) {
     const row = table.insertRow();
     const cells = [
-      `${PLAYER_NAMES[p.index]}${p.alive ? '' : '  LOST'}`,
+      PLAYER_NAMES[p.index],
       p.score, formatHearts(p.hull), p.collisions, p.crashes, p.gates, p.shots, p.hits,
     ];
     cells.forEach((v, i) => {
