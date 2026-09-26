@@ -1,5 +1,7 @@
 # Twinflare
 
+![Twinflare title wallpaper](rocket-game/assets/menu-wallpaper.png)
+
 A tangible user interface project for the HCI course at AIUB by team BrainWave. Two handheld cardboard rockets, each with a tilt sensor and a thumb trigger, steer and fire in a 2D browser game. One Arduino Uno reads both rockets and streams their state to the browser over USB. The browser runs the game and sends short feedback commands back for a damage LED on each rocket and a shared buzzer.
 
 Team members: Chinmoy Guha, Mohammed Ansar Uddin, Abdullah Al Taieb, Suvra Chakraborty.
@@ -23,6 +25,8 @@ python -m http.server 8000
 ```
 
 On macOS use `python3 -m http.server 8000`. Open http://localhost:8000. Keyboard: P1 steers with A/D and fires with Space, P2 steers with the arrow keys and fires with Enter. P or Esc pauses. Modes: Practice, Solo Mission (90 s, target score) and Co-op Mission (shared arena, shared timer, combined score).
+
+The title wallpaper above is the menu background. After each round the debrief screen shows the score, time, course seed and a per-player table. Solo Mission also saves your best score in the browser and marks a new best. Co-op names the rocket with the higher score (or a draw) and shows the team result below it.
 
 Tests run under Node without a browser:
 
